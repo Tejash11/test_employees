@@ -1,9 +1,10 @@
-import 'package:employee_details_assignment/models/employee.dart';
 import 'package:employee_details_assignment/providers/employee_provider.dart';
 import 'package:employee_details_assignment/screens/add_employee.dart';
 import 'package:employee_details_assignment/screens/employee_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/employee.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   @override
@@ -46,8 +47,8 @@ class EmployeeListScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final employee = list[index];
         return ListTile(
-          title: Text(employee.employee_name??""),
-          subtitle: Text(employee.id??""),
+          title: Text(employee.name!),
+          subtitle: Text(employee.id!),
           onTap: () {
             // Debuging statement to check employee.id
             print('Navigating to details of Employee ID: ${employee.id}');

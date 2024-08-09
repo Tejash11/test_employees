@@ -1,8 +1,8 @@
 import 'dart:convert';
-
-import 'package:employee_details_assignment/models/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/employee.dart';
 
 class EmployeeProvider with ChangeNotifier {
   final baseUrl = 'https://free-ap-south-1.cosmocloud.io/development/api/test_employees';
@@ -53,9 +53,9 @@ class EmployeeProvider with ChangeNotifier {
         'environmentId': '66aa089339e2fdc09bbba301',
       },
       body: json.encode({
-        'name': employee.employee_name,
-        'salary': employee.employee_salary,
-        'age': employee.employee_age,
+        'name': employee.name,
+        'salary': employee.salary,
+        'age': employee.age,
       }),
     );
 
@@ -68,25 +68,25 @@ class EmployeeProvider with ChangeNotifier {
     }
   }
 
+  //function to update employee detail
   Future<void> updateEmployee(Employee employee) async {
-    final response = await http.patch(
-      Uri.parse('$baseUrl/${employee.id}'),
+    final response = await http.put(Uri.parse('$baseUrl/${employee.id}'),
       headers: {
         'Content-Type': 'application/json',
         'projectId': '66aa089339e2fdc09bbba300',
         'environmentId': '66aa089339e2fdc09bbba301',
       },
       body: json.encode({
-        'name': employee.employee_name,
-        'salary': employee.employee_salary,
-        'age': employee.employee_age,
+        'name': employee.name,
+        'salary': employee.salary,
+        'age': employee.age,
       }),
     );
 
     if (response.statusCode == 200) {
       // Employee updated successfully
       fetchEmployees();
-      notifyListeners(); // Refresh the list of employees
+      notifyListeners();// Refreshing the list of employees
     } else {
       throw Exception('Failed to update employee');
     }
@@ -110,5 +110,4 @@ class EmployeeProvider with ChangeNotifier {
       throw Exception('Failed to delete employee');
     }
   }
-
 }
